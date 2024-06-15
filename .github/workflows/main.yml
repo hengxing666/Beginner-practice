@@ -28,8 +28,8 @@ jobs:
 
     - name: Use Skopeo Tools Sync Image to Docker Hub
       run: | 
-         skopeo --override-os linux --override-arch arm --override-variant v7 copy docker://docker.io/xhofe/alist:latest docker://${{ secrets.MIRRORHOST_1 }}/${{ secrets.NAMESPACE_1 }}/A:Alist-linux-arm-v7
-       skopeo --override-os linux --override-arch arm64 --override-variant v8 copy docker://docker.io/xhofe/alist:latest docker://${{ secrets.MIRRORHOST_1 }}/${{ secrets.NAMESPACE_1 }}/A:Alist-linux-arm64-v8
+         skopeo --override-os linux --override-arch arm --override-variant v7 copy docker://docker.io/xhofe/alist:latest docker://${{ secrets.MIRRORHOST_1 }}/${{ secrets.NAMESPACE_1 }}/a1:Alist-linux-arm-v7
+       skopeo --override-os linux --override-arch arm64 --override-variant v8 copy docker://docker.io/xhofe/alist:latest docker://${{ secrets.MIRRORHOST_1 }}/${{ secrets.NAMESPACE_1 }}/a1:Alist-linux-arm64-v8
        skopeo --override-os linux --override-arch amd64 copy docker://docker.io/xhofe/alist:latest docker://${{ secrets.MIRRORHOST_1 }}/${{ secrets.NAMESPACE_1 }}/A:Alist-linux-amd64
-       skopeo --override-os windows --override-arch arm64 --override-variant v8 copy docker://docker.io/xhofe/alist:latest docker://${{ secrets.MIRRORHOST_1 }}/${{ secrets.NAMESPACE_1 }}/A:Alist-windows-arm64
+       skopeo --override-os windows --override-arch arm64 --override-variant v8 copy docker://docker.io/xhofe/alist:latest docker://${{ secrets.MIRRORHOST_1 }}/${{ secrets.NAMESPACE_1 }}/a1:Alist-windows-arm64
        skopeo --override-os windows --override-arch amd64 copy docker://docker.io/xhofe/alist:latest docker://${{ secrets.MIRRORHOST_1 }}/${{ secrets.NAMESPACE_1 }}/A:Alist-windows-amd64
