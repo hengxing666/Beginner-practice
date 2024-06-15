@@ -1,0 +1,35 @@
+name: Alist-all
+on:
+  push:
+    branches: [ "main" ]
+  paths:
+    -'docker-sync/Control/Section/A/Alist/Alist-all.md'
+    -'docker-sync/Control/SectionControl/A.md'
+    -'docker-sync/Control/GlobalControl/All.md'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Git pull
+      uses: actions/checkout@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2.9.1
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v2.2.0
+      with:
+        registry: ${{ secrets.MIRRORHOST_1 }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        logout: false
+
+    - name: Use Skopeo Tools Sync Image to Docker Hub
+      run: | 
+         skopeo --override-os linux --override-arch arm --override-variant v7 copy docker://docker.io/xhofe/alist:latest docker://${{ secrets.MIRRORHOST_1 }}/${{ secrets.NAMESPACE_1 }}/A:Alist-linux-arm-v7
+       skopeo --override-os linux --override-arch arm64 --override-variant v8 copy docker://docker.io/xhofe/alist:latest docker://${{ secrets.MIRRORHOST_1 }}/${{ secrets.NAMESPACE_1 }}/A:Alist-linux-arm64-v8
+       skopeo --override-os linux --override-arch amd64 copy docker://docker.io/xhofe/alist:latest docker://${{ secrets.MIRRORHOST_1 }}/${{ secrets.NAMESPACE_1 }}/A:Alist-linux-amd64
+       skopeo --override-os windows --override-arch arm64 --override-variant v8 copy docker://docker.io/xhofe/alist:latest docker://${{ secrets.MIRRORHOST_1 }}/${{ secrets.NAMESPACE_1 }}/A:Alist-windows-arm64
+       skopeo --override-os windows --override-arch amd64 copy docker://docker.io/xhofe/alist:latest docker://${{ secrets.MIRRORHOST_1 }}/${{ secrets.NAMESPACE_1 }}/A:Alist-windows-amd64
